@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -50,7 +50,7 @@
                         <action selector="launchPreferencesWindow:" target="yPt-f7-kZe" id="mAP-yP-obe"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o2v-Zn-xFQ">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o2v-Zn-xFQ">
                     <rect key="frame" x="93" y="229" width="90" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="BingPaper" id="VwN-ZN-Spn">
@@ -81,7 +81,7 @@
                         <action selector="nextDay:" target="yPt-f7-kZe" id="Fqy-kx-K7P"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-mh-mg1">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-mh-mg1">
                     <rect key="frame" x="40" y="139" width="141" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="2016-09-09" placeholderString="" id="077-MH-XsJ">
@@ -142,7 +142,7 @@
     </objects>
     <resources>
         <image name="Bing" width="60" height="60"/>
-        <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
-        <image name="NSRightFacingTriangleTemplate" width="9" height="12"/>
+        <image name="NSLeftFacingTriangleTemplate" width="12" height="17"/>
+        <image name="NSRightFacingTriangleTemplate" width="12" height="17"/>
     </resources>
 </document>
