@@ -48,7 +48,7 @@ class BingPictureManager {
             
             if let objects = data?.value(forKey: "images") as? [NSObject] {
                 if let startDateString = objects[0].value(forKey: "startdate") as? String,
-                    let urlString = objects[0].value(forKey: "url") as? String {
+                    let urlString = objects[0].value(forKey: "urlbase") as? String {
                     
                     let formatter = DateFormatter()
                     formatter.dateFormat = "yyyyMMdd"
@@ -71,7 +71,7 @@ class BingPictureManager {
                             if urlString.contains("http://") || urlString.contains("https://") {
                                 netRequest.url = URL.init(string: urlString)
                             } else {
-                                netRequest.url = URL.init(string: "https://www.bing.com\(urlString)")
+                                netRequest.url = URL.init(string: "https://www.bing.com\(urlString)_UHD.jpg")
                             }
                             
                             let imageResponData = try? NSURLConnection.sendSynchronousRequest(netRequest as URLRequest, returning: nil)
