@@ -8,11 +8,18 @@
 
 import Cocoa
 
+enum DataError: Error {
+    case invalidURL
+    case invalidData
+    case invalidResponse
+    case message(_ error: Error?)
+}
+
 class BingPictureManager {
     let netRequest = NSMutableURLRequest()
     let fileManager = FileManager.default
     
-    var pastWallpapersRange = 15
+    var pastWallpapersRange = 8
     
     init() {
         netRequest.cachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy
@@ -39,48 +46,76 @@ class BingPictureManager {
     }
     
     fileprivate func obtainWallpaper(workDir: String, atIndex: Int, atRegion: String) {
-        let baseURL = "http://www.bing.com/HpImageArchive.aspx"
-        netRequest.url = URL(string: "\(baseURL)?format=js&n=1&idx=\(atIndex)&cc=\(atRegion)")
-        let reponseData = try? NSURLConnection.sendSynchronousRequest(netRequest as URLRequest, returning: nil)
-        
-        if let dataValue = reponseData {
-            let data = try? JSONSerialization.jsonObject(with: dataValue, options: []) as AnyObject
-            
-            if let objects = data?.value(forKey: "images") as? [NSObject] {
-                if let startDateString = objects[0].value(forKey: "startdate") as? String,
-                    let urlString = objects[0].value(forKey: "urlbase") as? String {
-                    
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyyMMdd"
-                    if let startDate = formatter.date(from: startDateString) {
-                        formatter.dateFormat = "yyyy-MM-dd"
-                        let dateString = formatter.string(from: startDate)
+        let baseURL = "https://www.bing.com/HpImageArchive.aspx"
+        let jsonUrl = "\(baseURL)?format=js&n=1&idx=\(atIndex)&cc=\(atRegion)"
+        fetchData(url: jsonUrl, completion: { [self]
+            result in
+            switch result {
+                
+            case .failure(let error):
+                print(error)
+                
+            case .success(let dataValue):
+                                
+                let data = try? JSONSerialization.jsonObject(with: dataValue, options: []) as AnyObject
+                if let objects = data?.value(forKey: "images") as? [NSObject] {
+                    if let startDateString = objects[0].value(forKey: "startdate") as? String,
+                       let urlString = objects[0].value(forKey: "urlbase") as? String {
                         
-                        let infoPath = buildInfoPath(workDir: workDir, onDate: dateString, atRegion: atRegion)
-                        let imagePath = buildImagePath(workDir: workDir, onDate: dateString, atRegion: atRegion)
-                        
-                        if !fileManager.fileExists(atPath: infoPath) {
-                            checkAndCreateWorkDirectory(workDir: workDir)
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyyMMdd"
+                        if let startDate = formatter.date(from: startDateString) {
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            let dateString = formatter.string(from: startDate)
                             
-                            try? dataValue.write(to: URL(fileURLWithPath: infoPath), options: [.atomic])
-                        }
-                        
-                        if !fileManager.fileExists(atPath: imagePath) {
-                            checkAndCreateWorkDirectory(workDir: workDir)
+                            let infoPath = self.buildInfoPath(workDir: workDir, onDate: dateString, atRegion: atRegion)
+                            let imagePath = buildImagePath(workDir: workDir, onDate: dateString, atRegion: atRegion)
                             
-                            if urlString.contains("http://") || urlString.contains("https://") {
-                                netRequest.url = URL.init(string: urlString)
-                            } else {
-                                netRequest.url = URL.init(string: "https://www.bing.com\(urlString)_UHD.jpg")
+                            if !fileManager.fileExists(atPath: infoPath) {
+                                checkAndCreateWorkDirectory(workDir: workDir)
+                                
+                                try? dataValue.write(to: URL(fileURLWithPath: infoPath), options: [.atomic])
                             }
                             
-                            let imageResponData = try? NSURLConnection.sendSynchronousRequest(netRequest as URLRequest, returning: nil)
-                            try? imageResponData?.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
+                            if !fileManager.fileExists(atPath: imagePath) {
+                                checkAndCreateWorkDirectory(workDir: workDir)
+                                
+                                let imageUrl = "https://www.bing.com\(urlString)_UHD.jpg"
+                                fetchData(url: imageUrl, completion: {
+                                    result in
+                                    switch result {
+                                    case .success(let response):
+                                        try? response.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                })
+                            }
                         }
                     }
                 }
             }
+        })
+    }
+    
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(.failure(DataError.invalidURL))
+            return
         }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data else {
+                completion(.failure(DataError.invalidData))
+                return
+            }
+            guard let response = response as? HTTPURLResponse, 200 ... 299  ~= response.statusCode else {
+                completion(.failure(DataError.invalidResponse))
+                return
+            }
+            print("Download complete \(url.absoluteString)")
+            completion(.success(data))
+        }.resume()
     }
     
     func fetchWallpapers(workDir: String, atRegin: String) {

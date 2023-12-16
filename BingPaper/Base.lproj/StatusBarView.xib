@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -102,15 +102,11 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DAH-5N-LM1">
-                    <rect key="frame" x="28" y="52" width="164" height="80"/>
+                    <rect key="frame" x="10" y="52" width="200" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" imageScaling="axesIndependently" inset="2" id="R7D-hG-r6g">
+                    <buttonCell key="cell" type="bevel" title="Guild houses of Grand-Place, Brussels, Belgium (© Richard Taylor/Sime/eStock Photo)" bezelStyle="regularSquare" alignment="center" controlSize="small" imageScaling="axesIndependently" inset="2" id="R7D-hG-r6g">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <string key="title">苏拉群岛上的苏格兰松树
-松恩-菲尤拉讷
-挪威
-© Orsolya Haarberg</string>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
                         <action selector="wallpaperInfoButtonClicked:" target="yPt-f7-kZe" id="YSQ-OZ-tSg"/>
@@ -141,7 +137,7 @@
         </popover>
     </objects>
     <resources>
-        <image name="Bing" width="60" height="60"/>
+        <image name="Bing" width="1024" height="1024"/>
         <image name="NSLeftFacingTriangleTemplate" width="12" height="17"/>
         <image name="NSRightFacingTriangleTemplate" width="12" height="17"/>
     </resources>

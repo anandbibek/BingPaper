@@ -81,7 +81,7 @@ class StatusBarViewController: NSViewController {
             if bingPictureManager.checkWallpaperExist(workDir: workDir, onDate: date, atRegion: region) {
                 let info = bingPictureManager.getWallpaperInfo(workDir: workDir, onDate: date, atRegion: region)
                 var infoString = info.copyright
-                infoString = infoString.replacingOccurrences(of: ",", with: "\n")
+                //infoString = infoString.replacingOccurrences(of: ",", with: "\n")
                 infoString = infoString.replacingOccurrences(of: "(", with: "\n")
                 infoString = infoString.replacingOccurrences(of: ")", with: "")
                 
