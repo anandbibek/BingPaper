@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Bing.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Bing@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Bing@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Template - Icon - App (1).png",
+      "idiom" : "universal"
     }
   ],
   "info" : {
