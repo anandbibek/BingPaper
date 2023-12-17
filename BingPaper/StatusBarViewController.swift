@@ -161,7 +161,7 @@ class StatusBarViewController: NSViewController {
     
     @IBAction func logoClicked(_ sender: NSButton) {
         if let path = SharedPreferences.string(forKey: SharedPreferences.Key.DownloadedImagesStoragePath) {
-            NSWorkspace.shared.openFile(path)
+            NSWorkspace.shared.open(URL(filePath: path))
         }
     }
     

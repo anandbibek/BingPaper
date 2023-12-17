@@ -105,7 +105,7 @@ class GeneralPreferencesViewController: NSViewController, MASPreferencesViewCont
     }
     
     @IBAction func viewStoragePath(_ sender: NSButton) {
-        NSWorkspace.shared.openFile(self.storagePathButton.title)
+        NSWorkspace.shared.open(URL(filePath: self.storagePathButton.title))
     }
     
     @IBAction func changeStoragePath(_ sender: NSButton) {
