@@ -25,8 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             var pathComponents = path.components(separatedBy: "/")
             pathComponents.removeLast(4)
             
-            let newPath = NSString.path(withComponents: pathComponents)
-            let url = URL(fileURLWithPath: newPath)
+            //let newPath = NSString.path(withComponents: pathComponents)
+            let url = URL(fileURLWithPath: pathComponents.joined(separator: "/"))
             let configuration = NSWorkspace.OpenConfiguration()
             
             NSWorkspace.shared.openApplication(at: url, configuration: configuration, completionHandler: nil)
