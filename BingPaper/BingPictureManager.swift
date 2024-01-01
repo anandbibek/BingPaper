@@ -125,9 +125,7 @@ class BingPictureManager {
     }
     
     func fetchLastWallpaper(workDir: String, atRegin: String) {
-        for index in -1...0 {
-            obtainWallpaper(workDir: workDir, atIndex: index, atRegion: atRegin)
-        }
+        obtainWallpaper(workDir: workDir, atIndex: 0, atRegion: atRegin)
     }
     
     func checkWallpaperExist(workDir: String, onDate: String, atRegion: String) -> Bool {
